@@ -40,7 +40,13 @@ build:
 	make --directory=aw-watcher-afk build
 	make --directory=aw-watcher-window build
 	make --directory=aw-server build SKIP_WEBUI=$(SKIP_WEBUI)
-	make --directory=aw-server-rust build SKIP_WEBUI=$(SKIP_WEBUI)
+	echo 'Looking for rust...'
+	if (which cargo); then \
+		echo 'Rust found!'; \
+		make --directory=aw-server-rust build SKIP_WEBUI=$(SKIP_WEBUI); \
+	else; \
+		echo 'Rust not found, skipping aw-server-rust!'\
+	fi
 	make --directory=aw-qt build
 #   The below is needed due to: https://github.com/ActivityWatch/activitywatch/issues/173
 	make --directory=aw-client build
